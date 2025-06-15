@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      border: 1px solid black;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .timer {
+      font-size: 4rem;
+      margin: 20px 0;
+    }
+    .time-setting {
+      margin: 20px 0;
+    }
+    input {
+      width: 50px;
+      padding: 5px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 5px;
+      border: 1px solid black;
+      background-color: white;
+      color: black;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pomodoro Timer</h1>
+    <div class="time-setting">
+      <label for="work-time">Work Time (minutes):</label>
+      <input type="number" id="work-time" value="25" min="1">
+    </div>
+    <div class="time-setting">
+      <label for="break-time">Break Time (minutes):</label>
+      <input type="number" id="break-time" value="5" min="1">
+    </div>
+    <div class="timer" id="timer-display">25:00</div>
+    <button id="start-btn">Start</button>
+  </div>
+
+  <script>
+    let isActive = false;
+    let workTime = 25 * 60; // Default work time in seconds
+    let breakTime = 5 * 60; // Default break time in seconds
+    let timerInterval;
+    let currentTime = workTime;
+
+    const timerDisplay = document.getElementById('timer-display');
+    const startBtn = document.getElementById('start-btn');
+    const workTimeInput = document.getElementById('work-time');
+    const breakTimeInput = document.getElementById('break-time');
+
+    // Format time in MM:SS
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const sec = seconds % 60;
+      return `${minutes.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+    }
+
+    // Update display time
+    function updateDisplay() {
+      timerDisplay.textContent = formatTime(currentTime);
+    }
+
+    // Start or stop the timer
+    function toggleTimer() {
+      if (isActive) {
+        clearInterval(timerInterval);
+        startBtn.textContent = "Start";
+      } else {
+        timerInterval = setInterval(updateTimer, 1000);
+        startBtn.textContent = "Stop";
+      }
+      isActive = !isActive;
+    }
+
+    // Timer logic (countdown)
+    function updateTimer() {
+      currentTime--;
+      updateDisplay();
+
+      if (currentTime === 0) {
+        if (currentTime === workTime) {
+          currentTime = breakTime;
+          alert("Take a break!");
+        } else {
+          currentTime = workTime;
+          alert("Back to work!");
+        }
+      }
+    }
+
+    // Event listener for button click
+    startBtn.addEventListener('click', toggleTimer);
+
+    // Update time lengths on input change
+    workTimeInput.addEventListener('input', () => {
+      workTime = parseInt(workTimeInput.value) * 60;
+      currentTime = workTime;
+      updateDisplay();
+    });
+
+    breakTimeInput.addEventListener('input', () => {
+      breakTime = parseInt(breakTimeInput.value) * 60;
+    });
+
+    // Initialize the timer
+    updateDisplay();
+  </script>
+</body>
+</html>
