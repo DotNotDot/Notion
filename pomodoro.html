@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       background-color: white;
-      color: black;
+      color: #603fa5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,20 +17,22 @@
     }
     .container {
       text-align: center;
-      border: 1px solid black;
+      border: 1px solid #603fa5;
       padding: 30px;
       border-radius: 10px;
       width: 300px;
     }
     h1 {
       font-size: 2rem;
+      color: #603fa5;
     }
     .timer {
       font-size: 4rem;
       margin: 20px 0;
+      color: #603fa5;
     }
     .time-setting {
-      margin: 20px 0;
+      margin: 10px 0; /* Reduced margin */
     }
     input {
       width: 50px;
@@ -38,13 +40,13 @@
       text-align: center;
       font-size: 1.2rem;
       margin: 5px;
-      border: 1px solid black;
+      border: 1px solid #603fa5;
       background-color: white;
-      color: black;
+      color: #603fa5;
     }
     button {
       padding: 10px 20px;
-      background-color: black;
+      background-color: #603fa5;
       color: white;
       border: none;
       cursor: pointer;
@@ -53,7 +55,7 @@
       border-radius: 5px;
     }
     button:hover {
-      background-color: gray;
+      background-color: #502f93;
     }
   </style>
 </head>
@@ -61,11 +63,11 @@
   <div class="container">
     <h1>Pomodoro Timer</h1>
     <div class="time-setting">
-      <label for="work-time">Work Time (minutes):</label>
+      <label for="work-time">Work Time:</label>
       <input type="number" id="work-time" value="25" min="1">
     </div>
     <div class="time-setting">
-      <label for="break-time">Break Time (minutes):</label>
+      <label for="break-time">Break Time:</label>
       <input type="number" id="break-time" value="5" min="1">
     </div>
     <div class="timer" id="timer-display">25:00</div>
